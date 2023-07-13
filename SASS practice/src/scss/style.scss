@@ -1,0 +1,111 @@
+@import "normalize.scss";
+
+body {
+  background-color: green;
+}
+
+$color1: rgb(255, 174, 0);
+$color2: red;
+$font10: 60px;
+$font9: 47px;
+
+%flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%button-black {
+  padding: 20px 30px;
+  color: white;
+  background-color: black;
+  font-size: 1.3rem;
+  border: none;
+}
+
+%red-button {
+  @extend %button-black;
+  background-color: red;
+}
+
+@mixin customButton($padding: 10px 15px, $color, $backColor, $font) {
+  border: none;
+  padding: $padding;
+  color: $color;
+  background-color: $backColor;
+  font-size: $font;
+}
+
+@mixin flex($jc: center, $ai: center, $fw: nowrap, $fd: row) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+  flex-wrap: $fw;
+  flex-direction: $fd;
+}
+
+@mixin rem($property, $value) {
+  #{$property}: ($value / 16) + rem;
+}
+
+.wrapper {
+  @extend %flex-center;
+  background-color: $color1;
+  h1 {
+    font-size: $font9;
+    font-weight: bold;
+    span {
+      color: $color2;
+      &:hover {
+        color: floralwhite;
+      }
+    }
+    &:hover {
+      color: floralwhite;
+    }
+  }
+  p {
+    font-size: 20px;
+    color: $color2;
+  }
+  &.active {
+    display: block;
+  }
+  button {
+    @extend %red-button;
+  }
+}
+
+// a {
+//   text-decoration: none;
+// }
+
+.container {
+  @include flex($fd: column);
+  background-color: cadetblue;
+  max-width: 1200px;
+  height: 400px;
+
+  .element {
+    background-color: chartreuse;
+    width: getPercent(400, 1200) "%";
+    height: getPercent(400, 1200) "%";
+  }
+
+  button {
+    @include customButton(
+      $font: 1.5rem,
+      $backColor: green,
+      $color: white,
+      $padding: 40px
+    );
+  }
+
+  h2 {
+    @include rem(font-size, 24);
+    @include rem(padding, 24);
+  }
+}
+
+@import "page1.scss";
+@import "page2.scss";
